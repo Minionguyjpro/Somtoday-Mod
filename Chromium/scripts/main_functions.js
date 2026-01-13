@@ -1390,8 +1390,11 @@ function onload() {
         }
         // Custom CSS - inject at the end so it overrides mod and Somtoday CSS
         if (!n(get('customcss')) && get('customcss').trim() !== '') {
-            // Escape </style> to prevent breaking out of the style tag
-            const sanitizedCSS = get('customcss').replace(/<\/style>/gi, '');
+            // Sanitize CSS to prevent breaking out of style tag and potential code injection
+            let sanitizedCSS = get('customcss')
+                .replace(/<\/style>/gi, '')  // Remove </style> to prevent breaking out
+                .replace(/<script[\s\S]*?<\/script>/gi, '')  // Remove any script tags
+                .replace(/javascript:/gi, '');  // Remove javascript: URLs
             tn('head', 0).insertAdjacentHTML('beforeend', '<style class="mod-style mod-custom-css">' + sanitizedCSS + '</style>');
         }
     }
