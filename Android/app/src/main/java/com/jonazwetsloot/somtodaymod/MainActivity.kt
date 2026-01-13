@@ -181,6 +181,7 @@ class MainActivity : AppCompatActivity() {
     private fun saveHtmlToCache(html: String) {
         try {
             val baseTag = "<base href=\"https://leerling.somtoday.nl/\">"
+
             val contentToSave = html.replace("<head>", "<head>$baseTag")
 
             File(filesDir, CACHE_FILE_NAME).writeText(contentToSave)

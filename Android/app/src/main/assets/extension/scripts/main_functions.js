@@ -1,15 +1,41 @@
 // MAIN FUNCTIONS
 
 // CACHE FOR ANDROID APP
-window.addEventListener('load', () => {
+const saveCache = () => {
     setTimeout(() => {
-        const htmlContent = document.documentElement.outerHTML;
+        const docClone = document.documentElement.cloneNode(true);
+        const offline_line = document.createElement('div');
+        offline_line.innerHTML = `<div class="offline-line ng-star-inserted"></div>`;
+
+        const slRoot = docClone.querySelector('sl-root');
+        if (slRoot) {
+            slRoot.appendChild(offline_line);
+        } else {
+            const cloneBody = docClone.querySelector('body');
+            if (cloneBody) cloneBody.appendChild(offline_line);
+        }
+
+        const htmlContent = docClone.outerHTML;
         browser.runtime.sendNativeMessage("somtodaymod", {
             type: "SAVE_CACHE",
             html: htmlContent
         });
+        console.log("Cache saved for URL:", window.location.href);
     }, 2000);
-});
+};
+window.addEventListener('load', saveCache);
+window.addEventListener('popstate', saveCache);
+(function(history){
+    const pushState = history.pushState;
+    history.pushState = function(state) {
+        if (typeof history.onpushstate == "function") {
+            history.onpushstate({state: state});
+        }
+        const result = pushState.apply(history, arguments);
+        saveCache();
+        return result;
+    };
+})(window.history);
 
 function onload() {
 
