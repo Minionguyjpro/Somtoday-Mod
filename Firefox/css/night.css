@@ -1,3 +1,4 @@
+@layer mod-night {
 :root.night {
     --bg-mask-normal: rgba(0, 0, 0, 0.9);
     --shadow-color: rgba(0, 0, 0, 0.8);
@@ -168,4 +169,5 @@
 
 :root.night .icon.svg {
     background-color: var(--bg-primary-weak) !important;
+}
 }
