@@ -1394,7 +1394,10 @@ function onload() {
             let sanitizedCSS = get('customcss')
                 .replace(/<\/style>/gi, '')  // Remove </style> to prevent breaking out
                 .replace(/<script[\s\S]*?<\/script>/gi, '')  // Remove any script tags
-                .replace(/javascript:/gi, '');  // Remove javascript: URLs
+                .replace(/javascript:/gi, '')  // Remove javascript: URLs
+                .replace(/expression\(/gi, '')  // Remove CSS expressions (IE)
+                .replace(/behavior:/gi, '')  // Remove behavior property (IE)
+                .replace(/@import/gi, '');  // Remove @import to prevent loading external CSS
             tn('head', 0).insertAdjacentHTML('beforeend', '<style class="mod-style mod-custom-css">' + sanitizedCSS + '</style>');
         }
     }
