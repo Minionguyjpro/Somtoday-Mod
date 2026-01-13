@@ -1398,6 +1398,8 @@ function onload() {
                 .replace(/expression\(/gi, '')  // Remove CSS expressions (IE)
                 .replace(/behavior:/gi, '')  // Remove behavior property (IE)
                 .replace(/@import/gi, '');  // Remove @import to prevent loading external CSS
+            // Insert custom CSS without a layer so it has higher priority than mod's layered CSS
+            // Unlayered CSS always wins over layered CSS regardless of specificity or source order
             tn('head', 0).insertAdjacentHTML('beforeend', '<style class="mod-style mod-custom-css">' + sanitizedCSS + '</style>');
         }
     }

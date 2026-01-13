@@ -1,3 +1,4 @@
+@layer mod-base {
 :root {
     --ruimvoldoende-cijfer-color: #3f8541 !important;
 }
@@ -557,4 +558,5 @@ sl-rooster-week-header .mod-add-homework {
 .blok>.container>svg {
     width: 100%;
     height: 100%;
+}
 }
