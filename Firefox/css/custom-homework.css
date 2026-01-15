@@ -1,4 +1,3 @@
-@layer mod-homework {
 sl-studiewijzer-week .week,
 sl-studiewijzer-dag {
     position: relative;
@@ -189,5 +188,4 @@ sl-studiewijzer-items.mod-added {
 
 .mod-homework-icon.mod-active, .mod-homework-icon:hover {
     background: var(--bg-elevated-strong);
-}
 }
